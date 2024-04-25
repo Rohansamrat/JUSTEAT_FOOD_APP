@@ -4,26 +4,30 @@ import Navbar from '../components/Navbar.js';
 export default function MyOrder() {
     const [orderData, setOrderData] = useState("");
 
-    const fetchMyOrder = async () => {
-        console.log(localStorage.getItem('userEmail'))
-        await fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/myOrderData`, {
-
-
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: localStorage.getItem('userEmail')
-            })
-        }).then(async (res) => {
-            let response = await res.json()
-            await setOrderData(response)
-        })
-
-    }
+  
 
     useEffect(() => {
+
+        const fetchMyOrder = async () => {
+            console.log(localStorage.getItem('userEmail'))
+            await fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/myOrderData`, {
+    
+    
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: localStorage.getItem('userEmail')
+                })
+            }).then(async (res) => {
+                let response = await res.json()
+                 setOrderData(response);
+            })
+    
+        }
+
+
         fetchMyOrder()
     }, [])
 
