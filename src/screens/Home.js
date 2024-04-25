@@ -10,7 +10,7 @@ export default function Home() {
     const [foodItem, setFoodItem] = useState([]);
 
     const loadData = async () => {
-        let response = await fetch("http://localhost:5000/api/foodData", {
+        let response = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/foodData`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -61,9 +61,10 @@ export default function Home() {
             </div>
             </div>
             <div className='container'>
+                
                 {
                     foodCat != []
-                        ? foodCat.map((data) => {
+                        ? foodCat?.map((data) => {
                             return (
                             
                             <div className='row mb-3' >
@@ -72,7 +73,7 @@ export default function Home() {
                                 </div>
                                 <hr />
                                 {foodItem != [] ? foodItem.filter((item) => (item.CategoryName == data.CategoryName)  && (item.name.toLowerCase().includes(search.toLowerCase())))
-                                    .map(filterItems => {
+                                    ?.map(filterItems => {
                                         return (
                                             <div key={filterItems._id} className="col-12 col-md-6 col-lg-3">
                                                 <Card foodItem = {filterItems}

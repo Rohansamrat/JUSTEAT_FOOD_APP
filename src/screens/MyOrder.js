@@ -6,7 +6,7 @@ export default function MyOrder() {
 
     const fetchMyOrder = async () => {
         console.log(localStorage.getItem('userEmail'))
-        await fetch("http://localhost:5000/api/myOrderData", {
+        await fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/myOrderData`, {
 
 
             method: 'POST',
@@ -35,16 +35,16 @@ export default function MyOrder() {
 
 
 
-
             <div className='container'>
+                
                 <div className='row'>
 
-                    {orderData != {} ? Array(orderData).map(data => {
+                    {orderData != {} ? Array(orderData)?.map(data => {
                         return (
                             data.orderData ?
-                                data.orderData.order_data.slice(0).reverse().map((item) => {
+                                data.orderData.order_data.slice(0).reverse()?.map((item) => {
                                     return (
-                                        item.map((arrayData) => {
+                                        item?.map((arrayData) => {
                                             return (
                                                 <div  >
                                                     {arrayData.Order_date ? <div className='m-auto mt-5'>

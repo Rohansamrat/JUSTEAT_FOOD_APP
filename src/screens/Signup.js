@@ -9,7 +9,7 @@ export default function Signup() {
 
         console.log(JSON.stringify({name:credentials.name,email:credentials.email,password:credentials.password,location:credentials.geolocation}))
         try{
-        const response =await fetch("http://localhost:5000/api/creatuser",{
+        const response =await fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/creatuser`,{
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
