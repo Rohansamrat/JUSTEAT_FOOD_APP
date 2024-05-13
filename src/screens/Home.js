@@ -13,25 +13,40 @@ export default function Home() {
 
     useEffect(() => {
         const loadData = async () => {
-            let response = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/foodData`, {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-    
-            response = await response.json();
-            setFoodItem(response[0]);
-            setFoodCat(response[1]);
-    
-            // console.log(response[0],response[1])
+
+            try{
+                
+               await fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/foodData`, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(async (res) => {
+                    let response = await res.json();
+                    // console.log(response)
+                    //  setOrderData(response);
+                    setFoodItem(response[0]);
+                    setFoodCat(response[1]);
+                })
+              
+                // response = await response.json();
+               
+
+            }catch(err){
+                console.log(err);
+            }
+
+            // console.log(response[0],response[1], '')
         };
-        loadData()
+
+        
+        loadData();
     }, [])
 
     return (
         <div>
             <div><Navbar /></div>
+            
             <div> <div id="carouselExampleFade" className="carousel slide carousel-fade " data-bs-ride="carousel" style={{ Objectfit: "contain !! important" }}>
 
                 <div className="carousel-inner " id='carousel'>
@@ -64,7 +79,7 @@ export default function Home() {
             <div className='container'>
                 
                 {
-                    foodCat != []
+                    foodCat?.length !== 0
                         ? foodCat?.map((data) => {
                             return (
                             
@@ -86,9 +101,8 @@ export default function Home() {
                             </div>
                             )
                         })
-                        : <div>""""""""""""""</div>
+                        : <div></div>
                 }
-
             </div>
 
             <div><Footer /></div>
